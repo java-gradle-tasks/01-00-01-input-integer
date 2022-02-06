@@ -6,7 +6,7 @@ import java.io.*;
 public class TestPrintInteger {
 
    @Test
-   public void testPrint() {
+   public void testPrintInteger () {
       InputStream stdin = System.in;
 
       int expectedYear=2099;
