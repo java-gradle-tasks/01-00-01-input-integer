@@ -10,13 +10,13 @@
 
       @Test
       public void testInput() {
+         
          String newLine="";
          if (System.getProperty("os.name").startsWith("Windows")) {
             newLine="\r\n";
          } else {
             newLine="\n";
          }
-
 
          InputStream stdin = System.in;
 
@@ -36,17 +36,12 @@
          System.setOut(stdout);
 
          String outStream="Adja meg a szuletesi evet:";
+         String expected=outStream;
+
          String actual=byteArrayOutputStream.toString();
 
-         String expected=outStream+String.valueOf(expectedYear)+newLine;
+         boolean found=actual.contains(expected);
 
-         System.out.println(actual);
-         System.out.println(expected);
-
-
-         int result=expected.compareTo(actual);
-         System.out.println(result+" kar:"+expected.charAt(result));
-
-         Assertions.assertEquals(actual,expected,"Hianyzik az input a kodbol");
+         Assertions.assertTrue(found,"Hianyzik az input a kodbol!");
       }
    }
