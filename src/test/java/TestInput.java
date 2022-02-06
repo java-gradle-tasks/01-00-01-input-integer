@@ -10,11 +10,19 @@
 
       @Test
       public void testInput() {
+         String newLine="";
+         if (System.getProperty("os.name").startsWith("Windows")) {
+            newLine="\r\n";
+         } else {
+            newLine="\n";
+         }
+
+
          InputStream stdin = System.in;
 
          int expectedYear=2099;
 
-         String input=String.valueOf(expectedYear)+"\r\n";
+         String input=String.valueOf(expectedYear)+newLine;
          System.setIn(new ByteArrayInputStream(input.getBytes()));
 
          ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -30,10 +38,15 @@
          String outStream="Adja meg a szuletesi evet:";
          String actual=byteArrayOutputStream.toString();
 
-         String expected=outStream+String.valueOf(expectedYear)+"\r\n";
+         String expected=outStream+String.valueOf(expectedYear)+newLine;
 
          System.out.println(actual);
          System.out.println(expected);
+
+
+         int result=expected.compareTo(actual);
+         System.out.println(result+" kar:"+expected.charAt(result));
+
          Assertions.assertEquals(actual,expected,"Hianyzik az input a kodbol");
       }
    }
