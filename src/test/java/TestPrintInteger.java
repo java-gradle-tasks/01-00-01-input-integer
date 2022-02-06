@@ -7,11 +7,19 @@ public class TestPrintInteger {
 
    @Test
    public void testPrintInteger () {
+      
+      String newLine="";
+      if (System.getProperty("os.name").startsWith("Windows")) {
+         newLine="\r\n";
+      } else {
+         newLine="\n";
+      }
+
       InputStream stdin = System.in;
 
       int expectedYear=2099;
 
-      String input=String.valueOf(expectedYear)+"\r\n";
+      String input=String.valueOf(expectedYear)+newLine;
       System.setIn(new ByteArrayInputStream(input.getBytes()));
 
       ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -26,10 +34,8 @@ public class TestPrintInteger {
 
       String actual=byteArrayOutputStream.toString();
 
-      String outStream="Adja meg a szuletesi evet:";
-      String expected=outStream+String.valueOf(expectedYear);
+      boolean found=actual.contains(input);
 
-      boolean goodMessage=actual.contains(input);
-      Assertions.assertTrue(goodMessage,"Nem a megfelelo uzenet jelenik meg!");
+      Assertions.assertTrue(found,"Nem írta ki a képernyőre a bekért számot!");
    }
 }
